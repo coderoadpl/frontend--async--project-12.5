@@ -23,7 +23,7 @@ export class Textarea {
             error = err
         }
 
-        if(error) p.innerText = error.message
+        if (error) p.innerText = error.message
 
         if (this.readonly) textarea.setAttribute('readonly', 'true')
 
@@ -33,7 +33,10 @@ export class Textarea {
         )
 
         setTimeout(
-            () => textarea.focus(),
+            () => {
+                if (this.readonly) return
+                textarea.focus()
+            },
             0
         )
 
