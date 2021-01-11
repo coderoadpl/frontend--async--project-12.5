@@ -4,6 +4,12 @@ export class App {
 
     constructor() {
         this.container = null
+        this.requestBody = '{ "name": "Mateusz" }'
+    }
+
+    onRequestBodyChange(newValue) {
+        this.requestBody = newValue
+        this.render()
     }
 
     render() {
@@ -15,18 +21,18 @@ export class App {
         this.container.innerHTML = ''
 
         const textareaElement1 = new Textarea(
-            '{ "name": "Mateusz" }',
-            console.log,
+            this.requestBody,
+            (newValue) => this.onRequestBodyChange(newValue),
             false
         )
-        const textareaElement2 = new Textarea(
-            '{ "name": "Mateusz" }',
-            console.log,
-            true
-        )
+        // const textareaElement2 = new Textarea(
+        //     '{ "name": "Mateusz" }',
+        //     console.log,
+        //     true
+        // )
 
         this.container.appendChild(textareaElement1.render())
-        this.container.appendChild(textareaElement2.render())
+        // this.container.appendChild(textareaElement2.render())
 
         return this.container
 
