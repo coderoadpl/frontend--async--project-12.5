@@ -1,6 +1,7 @@
 export class Textarea {
 
-    constructor(value, onChange) {
+    constructor(value, onChange, readonly) {
+        this.readonly = readonly
         this.value = value
         this.onChange = onChange
     }
@@ -10,6 +11,7 @@ export class Textarea {
         const textarea = document.createElement('textarea')
 
         textarea.value = this.value
+        if (this.readonly) textarea.setAttribute('readonly', 'true')
 
         textarea.addEventListener(
             'input',
