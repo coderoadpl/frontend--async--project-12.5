@@ -10,7 +10,10 @@ export class Textarea {
 
         const textarea = document.createElement('textarea')
 
-        textarea.value = this.value
+        textarea.style.width = '100%' 
+        textarea.style.minHeight = '200px' 
+
+        textarea.value = JSON.stringify(JSON.parse(this.value), null, 4)
         if (this.readonly) textarea.setAttribute('readonly', 'true')
 
         textarea.addEventListener(
