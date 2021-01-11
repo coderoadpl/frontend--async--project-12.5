@@ -2,11 +2,17 @@ import Textarea from './Textarea'
 
 export class App {
 
-    constructor() {}
+    constructor() {
+        this.container = null
+    }
 
     render() {
 
-        const container = document.createElement('div')
+        if (!this.container) {
+            this.container = document.createElement('div')
+        }
+
+        this.container.innerHTML = ''
 
         const textareaElement1 = new Textarea(
             '{ "name": "Mateusz" }',
@@ -19,10 +25,10 @@ export class App {
             true
         )
 
-        container.appendChild(textareaElement1.render())
-        container.appendChild(textareaElement2.render())
-        
-        return container
+        this.container.appendChild(textareaElement1.render())
+        this.container.appendChild(textareaElement2.render())
+
+        return this.container
 
     }
 
