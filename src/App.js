@@ -17,13 +17,13 @@ export class App {
     }
 
     onSendRequestClick() {
-       return fetch(this.URL, {
-           method: this.method,
-           body: this.method === 'GET' ? undefined : this.requestBody
-       })
-        .then((response) => response.text())
-        .then((responseBody) => this.responseBody = responseBody)
-        .finally(() => this.render())
+        return fetch(this.URL, {
+            method: this.method,
+            body: this.method === 'GET' ? undefined : this.requestBody
+        })
+            .then((response) => response.text())
+            .then((responseBody) => this.responseBody = responseBody)
+            .finally(() => this.render())
     }
 
     onRequestBodyChange(newValue, caretPosition) {
@@ -61,7 +61,7 @@ export class App {
 
         const textareaElementRequestBody = new Textarea(
             this.requestBody,
-            (newValue) => this.onRequestBodyChange(newValue),
+            (newValue, caretPosition) => this.onRequestBodyChange(newValue, caretPosition),
             false,
             this.caretPositionBody
         )
