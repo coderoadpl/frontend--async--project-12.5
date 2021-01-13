@@ -12,8 +12,8 @@ export class App {
         this.method = 'GET'
         this.URL = ''
 
-        this.isURLFocused = true
-        this.isBodyFocused = false
+        this.caretPositionURL = 0
+        this.caretPositionBody = null
     }
 
     onSendRequestClick() {
@@ -26,10 +26,10 @@ export class App {
         .finally(() => this.render())
     }
 
-    onRequestBodyChange(newValue) {
+    onRequestBodyChange(newValue, caretPosition) {
         this.requestBody = newValue
-        this.isURLFocused = false
-        this.isBodyFocused = true
+        this.caretPositionURL = null
+        this.caretPositionBody = caretPosition
         this.render()
     }
 
@@ -38,10 +38,10 @@ export class App {
         this.render()
     }
 
-    onRequestURLChange(newURL) {
+    onRequestURLChange(newURL, caretPosition) {
         this.URL = newURL
-        this.isBodyFocused = false
-        this.isURLFocused = true
+        this.caretPositionBody = null
+        this.caretPositionURL = caretPosition
         this.render()
     }
 
@@ -56,14 +56,14 @@ export class App {
         const inputElementURL = new Input(
             this.URL,
             this.onRequestURLChange.bind(this),
-            this.isURLFocused
+            this.caretPositionURL
         )
 
         const textareaElementRequestBody = new Textarea(
             this.requestBody,
             (newValue) => this.onRequestBodyChange(newValue),
             false,
-            this.isBodyFocused
+            this.caretPositionBody
         )
 
         const buttonElementSendRequest = new Button(

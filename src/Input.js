@@ -1,9 +1,9 @@
 class Input {
 
-    constructor(value, onInput, isFocused) {
+    constructor(value, onInput, caretPosition) {
         this.value = value
         this.onInput = onInput
-        this.isFocused = isFocused
+        this.caretPosition = caretPosition
     }
 
     render() {
@@ -22,11 +22,15 @@ class Input {
 
         input.addEventListener(
             'input',
-            (e) => this.onInput(e.target.value)
+            (e) => this.onInput(e.target.value, e.target.selectionStart)
         )
 
-        if (this.isFocused) {
-            queueMicrotask(() => input.focus())
+        if (this.caretPosition !== null) {
+            queueMicrotask(() => {
+                input.focus()
+                input.selectionStart = this.caretPosition
+                input.selectionEnd = this.caretPosition
+            })
         }
 
         return input
