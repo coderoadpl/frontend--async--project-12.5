@@ -2,11 +2,9 @@ export class Select {
 
     constructor(options, value, onChange) {
 
-        this.options = [
-            { label: 'First', value: 1 },
-            { label: 'Second', value: 2 },
-            { label: 'Third', value: 2 }
-        ]
+        this.value = value
+        this.options = options
+        this.onChange = onChange
 
     }
 
@@ -24,6 +22,13 @@ export class Select {
             select.appendChild(option)
 
         })
+
+        select.value = this.value
+
+        select.addEventListener(
+            'input',
+            (e) => this.onChange(e.target.value)
+        )
 
         return select
 

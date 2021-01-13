@@ -33,7 +33,15 @@ export class App {
             true
         )
 
-        const selectElement = new Select()
+        const selectElement = new Select(
+            [
+                { label: 'First', value: 1 },
+                { label: 'Second', value: 2 },
+                { label: 'Third', value: 3 }
+            ],
+            2,
+            console.log
+        )
 
         this.container.appendChild(textareaElement1.render())
         this.container.appendChild(textareaElement2.render())
