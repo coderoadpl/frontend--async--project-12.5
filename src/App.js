@@ -7,13 +7,23 @@ export class App {
 
     constructor() {
         this.container = null
-        this.requestBody = '{ "name": "Mateusz" }'
-        this.responseBody = '{ "name": "Tadeusz" }'
+        this.requestBody = '{ "name": "CodeRoad" }'
+        this.responseBody = ''
         this.method = 'GET'
         this.URL = ''
 
         this.isURLFocused = true
         this.isBodyFocused = false
+    }
+
+    onSendRequestClick() {
+       return fetch(this.URL, {
+           method: this.method,
+           body: this.method === 'GET' ? undefined : this.requestBody
+       })
+        .then((response) => response.text())
+        .then((responseBody) => this.responseBody = responseBody)
+        .finally(() => this.render())
     }
 
     onRequestBodyChange(newValue) {
@@ -58,7 +68,7 @@ export class App {
 
         const buttonElementSendRequest = new Button(
             'Send request',
-            () => console.log('Send request')
+            () => this.onSendRequestClick()
         )
 
         const textareaElementResponse = new Textarea(
