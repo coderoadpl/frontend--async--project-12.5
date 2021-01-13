@@ -1,8 +1,9 @@
 class Input {
 
-    constructor(value, onInput) {
+    constructor(value, onInput, isFocused) {
         this.value = value
         this.onInput = onInput
+        this.isFocused = isFocused
     }
 
     render() {
@@ -24,10 +25,12 @@ class Input {
             (e) => this.onInput(e.target.value)
         )
 
-        setTimeout(
-            () => input.focus(),
-            0
-        )
+        if (this.isFocused) {
+            setTimeout(
+                () => input.focus(),
+                0
+            )
+        }
 
         return input
 

@@ -11,10 +11,15 @@ export class App {
         this.responseBody = '{ "name": "Tadeusz" }'
         this.method = 'GET'
         this.URL = ''
+
+        this.isURLFocused = true
+        this.isBodyFocused = false
     }
 
     onRequestBodyChange(newValue) {
         this.requestBody = newValue
+        this.isURLFocused = false
+        this.isBodyFocused = true
         this.render()
     }
 
@@ -22,9 +27,11 @@ export class App {
         this.method = newMethod
         this.render()
     }
-    
+
     onRequestURLChange(newURL) {
         this.URL = newURL
+        this.isBodyFocused = false
+        this.isURLFocused = true
         this.render()
     }
 
@@ -38,13 +45,15 @@ export class App {
 
         const inputElementURL = new Input(
             this.URL,
-            this.onRequestURLChange.bind(this)
+            this.onRequestURLChange.bind(this),
+            this.isURLFocused
         )
 
         const textareaElementRequestBody = new Textarea(
             this.requestBody,
             (newValue) => this.onRequestBodyChange(newValue),
-            false
+            false,
+            this.isBodyFocused
         )
 
         const buttonElementSendRequest = new Button(
