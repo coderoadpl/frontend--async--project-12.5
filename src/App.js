@@ -2,6 +2,9 @@ import Textarea from './Textarea'
 import Select from './Select'
 import Input from './Input'
 import Button from './Button'
+import Message from './Message'
+
+import { fetchData } from './fetchData'
 
 export class App {
 
@@ -14,16 +17,29 @@ export class App {
 
         this.caretPositionURL = 0
         this.caretPositionBody = null
+
+        this.isLoading = false
     }
 
     onSendRequestClick() {
-        return fetch(this.URL, {
-            method: this.method,
-            body: this.method === 'GET' ? undefined : this.requestBody
-        })
-            .then((response) => response.text())
-            .then((responseBody) => this.responseBody = responseBody)
-            .finally(() => this.render())
+        return fetchData(
+            this.URL,
+            {
+                method: this.method,
+                body: this.method === 'GET' ? undefined : this.requestBody,
+                responseTransformFunction: 'text',
+                startCallback: () => {
+                    this.isLoading = true
+                    this.render()
+                },
+                successCallback: (responseBody) => this.responseBody = responseBody,
+                catchCallback: (error) => this.responseBody = error.message,
+                endCallback: () => {
+                    this.isLoading = false
+                    this.render()
+                },
+            }
+        )
     }
 
     onRequestBodyChange(newValue, caretPosition) {
@@ -54,6 +70,14 @@ export class App {
         }
 
         this.container.innerHTML = ''
+
+        if (this.isLoading) {
+            const messageElement = new Message('Sending request...')
+
+            this.container.appendChild(messageElement.render())
+
+            return this.container
+        }
 
         const inputElementURL = new Input(
             this.URL,
