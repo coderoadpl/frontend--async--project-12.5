@@ -26,10 +26,7 @@ class Input {
         )
 
         if (this.isFocused) {
-            setTimeout(
-                () => input.focus(),
-                0
-            )
+            queueMicrotask(() => input.focus())
         }
 
         return input
