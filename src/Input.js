@@ -21,7 +21,7 @@ class Input {
 
         input.addEventListener(
             'input',
-            this.onInput
+            (e) => this.onInput(e.target.value)
         )
 
         setTimeout(

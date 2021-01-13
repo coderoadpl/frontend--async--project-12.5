@@ -10,6 +10,7 @@ export class App {
         this.requestBody = '{ "name": "Mateusz" }'
         this.responseBody = '{ "name": "Tadeusz" }'
         this.method = 'GET'
+        this.URL = ''
     }
 
     onRequestBodyChange(newValue) {
@@ -21,6 +22,11 @@ export class App {
         this.method = newMethod
         this.render()
     }
+    
+    onRequestURLChange(newURL) {
+        this.URL = newURL
+        this.render()
+    }
 
     render() {
 
@@ -29,6 +35,11 @@ export class App {
         }
 
         this.container.innerHTML = ''
+
+        const inputElementURL = new Input(
+            this.URL,
+            this.onRequestURLChange.bind(this)
+        )
 
         const textareaElementRequestBody = new Textarea(
             this.requestBody,
@@ -59,6 +70,7 @@ export class App {
             this.onRequestMetodChange.bind(this)
         )
 
+        this.container.appendChild(inputElementURL.render())
         this.container.appendChild(textareaElementRequestBody.render())
         this.container.appendChild(buttonElementSendRequest.render())
         this.container.appendChild(textareaElementResponse.render())
