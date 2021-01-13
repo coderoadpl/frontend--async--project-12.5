@@ -7,10 +7,16 @@ export class App {
         this.container = null
         this.requestBody = '{ "name": "Mateusz" }'
         this.responseBody = '{ "name": "Tadeusz" }'
+        this.method = 'GET'
     }
 
     onRequestBodyChange(newValue) {
         this.requestBody = newValue
+        this.render()
+    }
+
+    onRequestMetodChange(newMethod) {
+        this.method = newMethod
         this.render()
     }
 
@@ -29,18 +35,20 @@ export class App {
         )
         const textareaElement2 = new Textarea(
             this.responseBody,
-            () => {},
+            () => { },
             true
         )
 
         const selectElement = new Select(
             [
-                { label: 'First', value: 1 },
-                { label: 'Second', value: 2 },
-                { label: 'Third', value: 3 }
+                { label: 'Metoda: GET', value: 'GET' },
+                { label: 'Metoda: POST', value: 'POST' },
+                { label: 'Metoda: PUT', value: 'PUT' },
+                { label: 'Metoda: PATCH', value: 'PATCH' },
+                { label: 'Metoda: DELETE', value: 'DELETE' }
             ],
-            2,
-            console.log
+            this.method,
+            this.onRequestMetodChange.bind(this)
         )
 
         this.container.appendChild(textareaElement1.render())

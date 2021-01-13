@@ -12,6 +12,9 @@ export class Select {
 
         const select = document.createElement('select')
 
+        select.style.width = '100%'
+        select.style.height = '40px'
+
         this.options.forEach(({ label, value }) => {
 
             const option = document.createElement('option')
