@@ -49,6 +49,8 @@ export class App {
 
         if (!this.container) {
             this.container = document.createElement('div')
+            this.container.style.maxWidth = '700px'
+            this.container.style.margin = '0 auto'
         }
 
         this.container.innerHTML = ''
@@ -56,7 +58,8 @@ export class App {
         const inputElementURL = new Input(
             this.URL,
             this.onRequestURLChange.bind(this),
-            this.caretPositionURL
+            this.caretPositionURL,
+            'Request URL'
         )
 
         const textareaElementRequestBody = new Textarea(
@@ -90,8 +93,10 @@ export class App {
         )
 
         this.container.appendChild(inputElementURL.render())
+        this.container.appendChild(document.createTextNode('Request body'))
         this.container.appendChild(textareaElementRequestBody.render())
         this.container.appendChild(buttonElementSendRequest.render())
+        this.container.appendChild(document.createTextNode('Response body (readonly)'))
         this.container.appendChild(textareaElementResponse.render())
         this.container.appendChild(selectElementMethod.render())
 

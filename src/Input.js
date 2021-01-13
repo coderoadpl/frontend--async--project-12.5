@@ -1,9 +1,10 @@
 class Input {
 
-    constructor(value, onInput, caretPosition) {
+    constructor(value, onInput, caretPosition, placeholder) {
         this.value = value
         this.onInput = onInput
         this.caretPosition = caretPosition
+        this.placeholder = placeholder
     }
 
     render() {
@@ -19,6 +20,7 @@ class Input {
         input.style.boxSizing = 'border-box'
 
         input.value = this.value
+        input.placeholder = this.placeholder
 
         input.addEventListener(
             'input',

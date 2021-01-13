@@ -15,6 +15,7 @@ export class Textarea {
 
         textarea.style.width = '100%'
         textarea.style.minHeight = '200px'
+        textarea.style.boxSizing = 'border-box'
 
         let error = null
         try {
