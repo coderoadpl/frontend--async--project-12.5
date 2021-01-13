@@ -1,5 +1,7 @@
 import Textarea from './Textarea'
 import Select from './Select'
+import Input from './Input'
+import Button from './Button'
 
 export class App {
 
@@ -28,18 +30,24 @@ export class App {
 
         this.container.innerHTML = ''
 
-        const textareaElement1 = new Textarea(
+        const textareaElementRequestBody = new Textarea(
             this.requestBody,
             (newValue) => this.onRequestBodyChange(newValue),
             false
         )
-        const textareaElement2 = new Textarea(
+
+        const buttonElementSendRequest = new Button(
+            'Send request',
+            () => console.log('Send request')
+        )
+
+        const textareaElementResponse = new Textarea(
             this.responseBody,
             () => { },
             true
         )
 
-        const selectElement = new Select(
+        const selectElementMethod = new Select(
             [
                 { label: 'Metoda: GET', value: 'GET' },
                 { label: 'Metoda: POST', value: 'POST' },
@@ -51,9 +59,10 @@ export class App {
             this.onRequestMetodChange.bind(this)
         )
 
-        this.container.appendChild(textareaElement1.render())
-        this.container.appendChild(textareaElement2.render())
-        this.container.appendChild(selectElement.render())
+        this.container.appendChild(textareaElementRequestBody.render())
+        this.container.appendChild(buttonElementSendRequest.render())
+        this.container.appendChild(textareaElementResponse.render())
+        this.container.appendChild(selectElementMethod.render())
 
         return this.container
 
